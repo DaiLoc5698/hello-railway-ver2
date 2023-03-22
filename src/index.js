@@ -6,6 +6,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use((req, res, next) => {
+  if (req.method === 'GET') {
+    res.removeHeader('cache-control');
+  }
+
+  next();
+});
+
 app.use('/contacts', contactsRouter)
 
 app.use("/", (req, res) => {
