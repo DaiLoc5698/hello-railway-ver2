@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import contactsRouter from './routers/contacts'
 
-
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
