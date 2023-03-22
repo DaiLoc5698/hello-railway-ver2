@@ -8,7 +8,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   if (req.method === 'GET') {
-    res.removeHeader('cache-control');
+    console.log('setHeader')
+    res.setHeader('cache-control', 'public, max-age=3600');
   }
 
   next();
