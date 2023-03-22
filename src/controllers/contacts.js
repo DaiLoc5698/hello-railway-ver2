@@ -1,8 +1,10 @@
 import db from '../database'
+import activitiesController from './activities'
 
 const create = async (payload) => {
   try {
     const id = await db('contacts').insert(payload)
+    activitiesController.create(id[0], 'POST', 'contacts')
 
     return id[0];
   } catch (e) {
@@ -15,6 +17,7 @@ const update = async (id, payload) => {
     await db('contacts').where({ id: id }).update(payload)
 
     const contact = await db('contacts').where({ id: id })
+    activitiesController.create(id, 'PUT', 'contacts')
 
     return contact;
   } catch (e) {
@@ -25,7 +28,7 @@ const update = async (id, payload) => {
 const del = async (id) => {
   try {
     await db('contacts').where({ id: id }).del()
-
+    activitiesController.create(id, 'DELETE', 'contacts')
     return id
   } catch (e) {
     throw e
