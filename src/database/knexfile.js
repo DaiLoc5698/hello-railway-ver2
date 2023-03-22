@@ -1,10 +1,10 @@
-import path from 'path'
 import dotenv from 'dotenv'
 dotenv.config();
 
 const knexConfig = {
   development: {
     client: 'mysql',
+    version: '8.0',
     connection: {
       host : process.env.KNEX_HOST,
       port : process.env.MARIADB_PORT,
@@ -47,6 +47,7 @@ const knexConfig = {
 
   production: {
     client: 'mysql',
+    version: '8.0',
     connection: {
       host : process.env.KNEX_HOST,
       port : process.env.MARIADB_PORT,
@@ -57,6 +58,20 @@ const knexConfig = {
     migrations: {
       tableName: 'migrations'
     },
+    log: {
+      warn(message) {
+        console.log('[knex] warn ', message)
+      },
+      error(message) {
+        console.log('[knex] error ', message)
+      },
+      deprecate(message) {
+        console.log('[knex] deprecate ', message)
+      },
+      debug(message) {
+        console.log('[knex] debug ', message)
+      },
+    }
   }
 }
 

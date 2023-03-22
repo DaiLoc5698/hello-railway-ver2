@@ -4,13 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _path = _interopRequireDefault(require("path"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 _dotenv.default.config();
 const knexConfig = {
   development: {
     client: 'mysql',
+    version: '8.0',
     connection: {
       host: process.env.KNEX_HOST,
       port: process.env.MARIADB_PORT,
@@ -51,6 +51,7 @@ const knexConfig = {
   },
   production: {
     client: 'mysql',
+    version: '8.0',
     connection: {
       host: process.env.KNEX_HOST,
       port: process.env.MARIADB_PORT,
@@ -60,6 +61,20 @@ const knexConfig = {
     },
     migrations: {
       tableName: 'migrations'
+    },
+    log: {
+      warn(message) {
+        console.log('[knex] warn ', message);
+      },
+      error(message) {
+        console.log('[knex] error ', message);
+      },
+      deprecate(message) {
+        console.log('[knex] deprecate ', message);
+      },
+      debug(message) {
+        console.log('[knex] debug ', message);
+      }
     }
   }
 };
